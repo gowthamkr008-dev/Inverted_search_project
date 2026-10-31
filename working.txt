@@ -1,0 +1,67 @@
+
+    while(fscanf(fp,"%s",buffer) == 1)
+    {
+      updone = 0;
+      // printf("%s  \n",buffer);
+      char ch = tolower(buffer[0]);
+      ind = ch - 'a';
+      if(arr[ind].mn_link == NULL){
+        printf("main node like is null\n");
+        if(insert_last_main_node(&arr[ind].mn_link,buffer)== FAILURE){
+          return FAILURE;
+        }else{
+          printf(" inserted %s\n",buffer);
+          updone= 1;
+          if(insert_last_sub_node(&arr[ind].mn_link->sn_link,temp->fname)== FAILURE ){
+            return FAILURE;
+          }
+        }
+      }
+
+      main_node * mn_temp = arr[ind].mn_link;
+      while(mn_temp != NULL){
+        printf("loop enter\n");
+        if( (strcasecmp(mn_temp->word,buffer) == 0) && updone == 0 ){     /* word are equal */
+          sub_node * sn_temp = mn_temp->sn_link;
+          while(sn_temp != NULL){
+            printf("file loop enter\n");
+            if(strcmp(sn_temp->fname,temp->fname) == 0){   /*word and file name are equal */
+              printf("increment word count \n");
+              sn_temp->w_count +=1;
+              updone = 1; 
+              break;
+            }
+            sn_temp  = sn_temp->sn_link;
+          }
+          if(updone == 0){
+            printf("word equal but file different \n");
+            if(insert_last_sub_node(&mn_temp->sn_link,temp->fname)== FAILURE ){
+              return FAILURE;
+            }else{
+              mn_temp->f_cout +=1;
+              updone = 1;
+            }
+            break;
+          }
+          break;
+        }
+        mn_temp = mn_temp->mn_link;
+      }
+
+      if(updone == 0){
+        printf("word not equal \n");
+        printf("index %d %s\n",ind,buffer);
+         if(insert_last_main_node(&arr[ind].mn_link,buffer) == FAILURE){
+          return FAILURE;
+        }else{/*mistake*/
+          // sub_node * sn_temp = arr[ind].mn_link;
+          updone =1;
+          // if(insert_last_sub_node(&arr[ind].mn_link->sn_link,temp->fname)== FAILURE ){
+          //   return FAILURE;
+          // }
+        }
+      }
+
+
+printf("done 1 word %s\n",buffer);
+    }
