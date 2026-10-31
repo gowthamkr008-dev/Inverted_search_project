@@ -8,7 +8,7 @@ status insert_first(f_list ** head, char * name){
   }
 
   new->fname = name;
-  printf("file inserted %s\n",new->fname);
+  // printf("file inserted %s\n",new->fname);
    new->link  = *head;
  
 

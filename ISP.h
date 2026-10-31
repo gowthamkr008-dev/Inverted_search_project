@@ -30,13 +30,15 @@ typedef struct ht_arr{
 
 typedef enum status{
   FAILURE =-1,
-  SUCCESS = 1
+  SUCCESS = 1,
+  UPDATE_DB
 }status;
 
 /*function declerations*/
 status cla_validation(int arg,char *argv[],f_list **);
 status insert_first(f_list **,char * data);
 void print_list(f_list * fname);
+void display(ht_arr arr[27]);
 status create_database(f_list **head,ht_arr arr[27]);
 
 

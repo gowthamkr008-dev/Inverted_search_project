@@ -1,4 +1,5 @@
 #include "ISP.h"
+extern  int status_of_input;
 
 status check_duplicate_in_file( f_list * head,char * fname){
   if(head == NULL){
@@ -64,6 +65,16 @@ status cla_validation( int argv,char * argc[],f_list ** head)
         valid = 0;
       }else
       {
+        char ch = fgetc(fp);
+        printf("%c\n",ch);
+        if(ch == '#'){
+          fseek(fp,-1,SEEK_END);
+          ch = fgetc(fp);
+          printf("%c\n",ch);
+          if(ch == '#'){
+            status_of_input = UPDATE_DB;
+          }
+        }
         file_open =1;
         valid = 1;
       }
