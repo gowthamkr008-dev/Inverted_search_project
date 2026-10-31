@@ -38,8 +38,6 @@ int main(int argc,char *argv[]){
   if(cla_validation(argc,argv,&head) == FAILURE){
     printf("Cla validation failed\n");
     return FAILURE;
-  }else{
-    puts("Done\n\n");
   }
 
   if(create_database(&head,arr) == FAILURE){

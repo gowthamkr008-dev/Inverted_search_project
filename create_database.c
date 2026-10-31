@@ -1,7 +1,7 @@
 #include "ISP.h"
 static status insert_last_main_node(main_node ** node,char *word ){
   // main_node * temp = *node;
-  printf("insert main node %s\n",word);
+  // printf("insert main node %s\n",word);
    main_node  *new = malloc(sizeof(main_node));
   if(new == NULL){
     return FAILURE;
@@ -10,32 +10,25 @@ static status insert_last_main_node(main_node ** node,char *word ){
    if(new->word == NULL){
       return FAILURE;
     }
-    // puts("done1");
     strcpy(new->word,word );
     new->f_cout = 1;
-        // puts("done2");
     new->mn_link = NULL;
-        // puts("done3");
     new->sn_link = NULL;
-        // puts("done4");
     
         if(*node == NULL){
           *node = new;
           return SUCCESS;
         }
     main_node *temp = *node;
-    // puts("node5");
   while(temp->mn_link != NULL){
     temp = temp->mn_link;
   }
-  // puts("done5");
   temp->mn_link = new;
-  printf("done\n");
   return SUCCESS;
 }
 
 static status insert_last_sub_node(sub_node ** node,char*fname){
-  printf("insert subnode %s\n",fname);
+  // printf("insert subnode %s\n",fname);
     sub_node  *new = malloc(sizeof(sub_node));
   if(new == NULL){
     return FAILURE;
@@ -44,40 +37,45 @@ static status insert_last_sub_node(sub_node ** node,char*fname){
    if(new->fname == NULL){
       return FAILURE;
     }
-    // puts("done1");
     strcpy(new->fname,fname );
     new->w_count = 1;
-        // puts("done2");
     new->sn_link = NULL;
-        // puts("done4");
     if(*node == NULL){
           *node = new;
           return SUCCESS;
           }
     sub_node *temp = *node;
-    // puts("node5");
   while(temp->sn_link != NULL){
     temp = temp->sn_link;
   }
-  // puts("done5");
   temp->sn_link = new;
-  printf("done\n");
   return SUCCESS;
 }
  
   
   
 static void display(ht_arr arr[27]){
+  main_node *temp;
+  int gap =0,print =0;
+  int j =1;
+  printf("%-5s  %-6s %-11s %-10s %-10s \n","Index","word" ,"file count","file name","word count" );
  for (int i = 0 ; i < 27;i++){
   if(arr[i].mn_link != NULL){
     main_node * mn_temp = arr[i].mn_link;
     while(mn_temp != NULL){
-      printf("\"%s\"  file count %d ",mn_temp->word,mn_temp->f_cout);
+      print =0;
+      gap = 15;
+      printf("%-5d  %-8s %2d ",j++,mn_temp->word,mn_temp->f_cout);
       sub_node *sn_temp = mn_temp->sn_link;
       while(sn_temp != NULL){
-        printf(" file name \"%s\"word count : %d\n",sn_temp->fname,sn_temp->w_count);
+        if(print == 1){
+          gap = 34;
+        }
+        printf(" %*s %5d\n",gap,sn_temp->fname,sn_temp->w_count);
+        print =1;
         sn_temp = sn_temp->sn_link;
       }
+     
       printf("\n");
       mn_temp = mn_temp->mn_link;
     }
@@ -108,7 +106,7 @@ status create_database(f_list **head,ht_arr arr[27]){
     while(fscanf(fp, "%s",buffer) == 1)
     {
       updone = 0;
-      printf("file data %s\n",buffer);
+      // printf("file data %s\n",buffer);
       char ch = tolower(buffer[0]) - 'a';
       ind = ch;
       if(ind >= 0 && ind <= 25){
@@ -137,7 +135,7 @@ status create_database(f_list **head,ht_arr arr[27]){
           sn_temp = mn_temp->sn_link;
           while(sn_temp != NULL){
             if(strcmp(sn_temp->fname , temp->fname)== 0 ){                                   /* words and files are equal increment the word count */
-              printf("%s increase word count\n",temp->fname);
+              // printf("%s increase word count\n",temp->fname);
                   sn_temp->w_count += 1;
                   updone = 1;
                   break;
@@ -160,7 +158,7 @@ status create_database(f_list **head,ht_arr arr[27]){
       }
 
       if(updone == 0){
-        printf("insert main node word not present %s\n",buffer);                                                                 /* word are not present insert new node */
+        // printf("insert main node word not present %s\n",buffer);                                                                 /* word are not present insert new node */
         if(insert_last_main_node(&mn_temp->mn_link,buffer)== FAILURE ){
           return FAILURE;
         }else{
@@ -175,12 +173,8 @@ status create_database(f_list **head,ht_arr arr[27]){
       }
 
     }
-
-
-
-    printf("\n");
     fclose(fp);
-    printf("%s done \n\n",temp->fname);
+    // printf("%s done\n",temp->fname);
     temp = temp->link;
   }
 

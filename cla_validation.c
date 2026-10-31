@@ -106,18 +106,10 @@ status cla_validation( int argv,char * argc[],f_list ** head)
   }
 }
 }
-  printf("\n\n");
-  f_list * temp = *head;
-  i =0;
-  while (temp != NULL)
-  {
-    printf("%d %s\n",i+1,temp->fname);
-    i++;
-    temp = temp->link;
-  }
+print_list(*head);
   
 if(*head == NULL){
-  printf("enter valid file\n");
+  printf("Enter valid file\n");
   return FAILURE;
 }
 

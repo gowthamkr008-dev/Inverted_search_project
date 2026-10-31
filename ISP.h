@@ -36,7 +36,7 @@ typedef enum status{
 /*function declerations*/
 status cla_validation(int arg,char *argv[],f_list **);
 status insert_first(f_list **,char * data);
-status print_list(f_list ** fname);
+void print_list(f_list * fname);
 status create_database(f_list **head,ht_arr arr[27]);
 
 
