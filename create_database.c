@@ -184,7 +184,7 @@ status create_database(f_list **head,ht_arr arr[27])
     temp = temp->link;
   }
 
- display(arr);
+//  display(arr);
   return SUCCESS;
 }
 
