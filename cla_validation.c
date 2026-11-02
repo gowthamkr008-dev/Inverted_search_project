@@ -1,13 +1,18 @@
 #include "ISP.h"
-extern  int status_of_input;
 
-status check_duplicate_in_file( f_list * head,char * fname){
-  if(head == NULL){
+status check_duplicate_in_file( f_list * head, char * fname)
+{
+  
+  if(head == NULL)
+  {
     return SUCCESS;
   }
-
-  while(head != NULL){
-    if(strcmp(head->fname,fname) == 0){
+  
+  while(head != NULL)
+  {
+    
+    if(strcmp(head->fname, fname) == 0)
+    {
       return FAILURE;
     }
     head = head->link;
@@ -16,24 +21,26 @@ status check_duplicate_in_file( f_list * head,char * fname){
 }
 
 
-status insert_first_for_database(f_list ** head, char * name){
-
+status insert_first_for_database(f_list ** head, char * name)
+{
+  
   f_list * new =  malloc(sizeof(f_list));
-  if(new == NULL){
+  
+  if(new == NULL)
+  {
     return FAILURE;
   }
-
+  
   new->fname = name;
-  // printf("file inserted %s\n",new->fname);
-   new->link  = *head;
- 
-
+  new->link  = *head;
+  
   *head = new;
   return SUCCESS;
+
 }
 
 
-status cla_validation(int argv,char *argc[],f_list **head ,f_list **up_db_file )
+status cla_validation(int argv,char *argc[],f_list **head )
 {
   if( (argv <= 1) )
   {
@@ -55,8 +62,6 @@ status cla_validation(int argv,char *argc[],f_list **head ,f_list **up_db_file )
       valid = 1;
     }
     
-    // printf("file validation %d\n",valid);
-    
     if(valid == 1)
     {
       
@@ -70,10 +75,10 @@ status cla_validation(int argv,char *argc[],f_list **head ,f_list **up_db_file )
       }
     }
     
-    // printf("file validation %d\n",valid);
-    
     FILE *fp;
+    
     int file_open = 0;
+    
     if(valid == 1)
     {
       fp = fopen(argc[i],"r");
@@ -82,73 +87,75 @@ status cla_validation(int argv,char *argc[],f_list **head ,f_list **up_db_file )
         valid = 0;
       }else
       {
+        valid = 1;
         char ch = fgetc(fp);
-        // printf("%c\n",ch);
-        if(ch == '#'){
+        if(ch == '#')
+        {
           fseek(fp,-1,SEEK_END);
           ch = fgetc(fp);
-          // printf("%c\n",ch);
-          if(ch == '#'){
-            status_of_input = UPDATE_DB;
-            if(insert_first(up_db_file,argc[i])== FAILURE){
-              return FAILURE;
+          
+          if(ch == '#')
+          {
+              valid = 0;
+              printf("backup file present ignore that ");
+              fclose(fp);
             }
-
           }
         }
-        file_open =1;
+    }
+    
+    int pos;
+    
+    if(valid == 1)
+    {
+      
+      fseek(fp,0,SEEK_END);
+      pos = ftell(fp);
+      valid = 1;
+    }else
+    {
+      valid = 0;
+    }
+    
+    if(valid == 1 && pos != 0)
+    {
+      valid = 1;
+    }else
+    {
+      puts("Empty file");
+      valid = 0;
+    }
+    
+    if(valid == 1)
+    {
+      if(check_duplicate_in_file(*head,argc[i]) == FAILURE)
+      {
+        printf("Duplicate file %s\n",argc[i]);
+        valid = 0;
+      }else
+      {
         valid = 1;
       }
     }
-
-    // printf("file opening %d\n",valid);
-    int pos;
-   if(valid == 1){
-     fseek(fp,0,SEEK_END);
-    pos = ftell(fp);
-    valid =1;
-   }else{
-    valid =0;
-   }
-    if(valid == 1 && pos != 0){
-      valid = 1;
-    }else{
-      puts("Empty file");
-      valid =0;
-    }
-
-    if(file_open){
-      fclose(fp);
-    }
-    // printf("file empty %d\n",valid);
-      if(valid == 1){
-    if(check_duplicate_in_file(*head,argc[i]) == FAILURE){
-      printf("Duplicate file %s\n",argc[i]);
-      valid = 0;
-    }else{
-      valid =1;
+    
+    if(valid == 1)
+    {
+      if(insert_first(head,argc[i])== FAILURE)
+      {
+        printf("Memory allocation failed\n");
+        return FAILURE;
+      }
     }
   }
-
-  // printf("everything valid %d\n",valid);
-   if(valid == 1){
-  if(insert_first(head,argc[i])== FAILURE){
-    printf("Memory allocation failed\n");
+  
+  print_list(*head);
+  
+  if(*head == NULL)
+  {
+    printf("Enter valid file\n");
     return FAILURE;
   }
-}
-}
-print_list(*head);
-if(up_db_file != NULL){
-printf("database file ");
-print_list(*up_db_file);
-}
   
-if(*head == NULL && up_db_file == NULL){
-  printf("Enter valid file\n");
-  return FAILURE;
-}
-
   return SUCCESS;
 }
 

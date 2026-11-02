@@ -1,9 +1,9 @@
 #include "ISP.h"
 
 
-
 static status insert_last_main_node(main_node ** node,char *word )
 {
+  
   main_node  *new = malloc(sizeof(main_node));
   
   if(new == NULL)
@@ -110,7 +110,7 @@ status create_database(f_list **head,ht_arr arr[27])
       main_node *mn_temp;
 
       if(arr[ind].mn_link == NULL)
-      {                                           /* when main node has null that time execute */
+      {                                                                         /* when main node has null that time execute */
         if(insert_last_main_node(&arr[ind].mn_link,buffer)== FAILURE )
         {
           return FAILURE;
@@ -162,8 +162,7 @@ status create_database(f_list **head,ht_arr arr[27])
       }
 
       if(updone == 0)
-      {
-        // printf("insert main node word not present %s\n",buffer);                                                                 /* word are not present insert new node */
+      {                                                                           /* word are not present insert new node */
         if(insert_last_main_node(&mn_temp->mn_link,buffer)== FAILURE )
         {
           return FAILURE;
@@ -183,8 +182,6 @@ status create_database(f_list **head,ht_arr arr[27])
     fclose(fp);
     temp = temp->link;
   }
-
-//  display(arr);
   return SUCCESS;
 }
 

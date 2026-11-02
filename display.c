@@ -18,7 +18,7 @@ void display(ht_arr arr[27])
       {
         print =0;
         gap = 15;
-        printf("%-5d  %-8s %2d ",j++,mn_temp->word,mn_temp->f_cout);
+        printf("%-5d  %-8s %2d ",i,mn_temp->word,mn_temp->f_cout);
         sub_node *sn_temp = mn_temp->sn_link;
         
         while(sn_temp != NULL){

@@ -36,18 +36,14 @@ typedef enum status{
 }status;
 
 /*function declerations*/
-status cla_validation(int arg,char *argv[],f_list **,f_list **up_db_file );
+status cla_validation(int arg,char *argv[],f_list **);
 status insert_first(f_list **,char * data);
-void print_list(f_list * fname);
-void display(ht_arr arr[27]);
 status create_database(f_list **head,ht_arr arr[27]);
-void search_database(ht_arr arr[27],char *word);
+status save_database(ht_arr arr[27],char *filename);
+status updata_database(ht_arr arr[27],char *filename);
 
-status update_db(ht_arr ** arr);
-// status display(ht_arr );
 
-/* 
-search (ht_arr)
-save(ht_arr)
-
-*/
+void free_memory(ht_arr arr[27],f_list ** head);
+void print_list(f_list * fname);
+void display(ht_arr arr[27]); 
+void search_database(ht_arr arr[27],char *word); 
