@@ -34,7 +34,7 @@ status save_database(ht_arr arr[27],char *filename)
       temp = temp->mn_link;
     }
   }
-  
+  fclose(fp);
   return SUCCESS;
 
 }

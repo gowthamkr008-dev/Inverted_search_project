@@ -1,6 +1,7 @@
 #include"ISP.h"
 static status file_validation(char *f_name);
 
+
 int main(int argc,char *argv[])
 {
   
@@ -23,6 +24,8 @@ int main(int argc,char *argv[])
   
   int choice;
   
+  int creat_db =0;
+  int up_db = 0;
   while(1)
   {
     
@@ -38,6 +41,17 @@ int main(int argc,char *argv[])
     {
       case 1:
       {
+        if(up_db == 1 && head  != NULL){
+          check_file_already_update(arr,&head);
+          if(head == NULL){
+            printf("Data Base created succesfully ");
+            break;
+          }else{
+            creat_db = 0;
+          }
+        }
+        if(creat_db == 0){
+        creat_db = 1;
         if(create_database(&head,arr) == FAILURE)
         {
           return FAILURE;
@@ -45,6 +59,9 @@ int main(int argc,char *argv[])
         {
           puts("Database created");
         }
+      }else{
+        printf("Error: Data base already created\n");
+      }
         break;
       }
       
@@ -88,27 +105,36 @@ int main(int argc,char *argv[])
       
       case 5:
       {
+        if(up_db == 0){
         char filename[20];
-        printf("Enter a backup file name to update : ");
-        scanf("%19s",filename);
-        while((ch = getc(stdin) != '\n') &&  ch != EOF );
+        char cho;
+       
+          printf("Enter a backup file name to update : ");
+            scanf("%19s",filename);
+            while((ch = getc(stdin) != '\n') &&  ch != EOF );
         if(file_validation(filename) == SUCCESS )
         {
-          printf("Start update database \n");
           if( updata_database(arr,filename) == FAILURE)
           {
             return FAILURE;
           }
+           up_db = 1;
+           printf("Data base updated\n");
         }else
         {
           printf("Invalid file\n");
         }
+      }else{
+        printf("Update database is already done\n");
+      }
         break;
       }
       case 6:
       {
         f_list *temp = NULL;
         free_memory(arr,&temp);
+        creat_db = 0;
+        up_db =1;
         break;
       }
 
@@ -128,18 +154,18 @@ int main(int argc,char *argv[])
 }
  
 
-static status file_validation(char *f_name)
+static status file_validation(char *fname)
 {
-  printf("FIle name is %s\n",f_name);
+  printf("FIle name is %s\n",fname);
   
-  char *ext = strrchr(f_name,'.');
+  char *ext = strrchr(fname,'.');
   
   if(ext == NULL)
   {
     return FAILURE;
   }else if(strcmp(ext,".txt")== 0 )
   {
-    FILE *fp = fopen(f_name ,"r");
+    FILE *fp = fopen(fname ,"r");
     if(fp == NULL)
     {
       return FAILURE;

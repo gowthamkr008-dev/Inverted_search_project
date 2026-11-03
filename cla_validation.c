@@ -1,4 +1,22 @@
 #include "ISP.h"
+static void print_list(f_list *head)
+{
+  
+  if (head == NULL)
+  {
+    return ;
+  }
+  
+  int i = 1;
+  
+  while(head)
+  {
+    printf("%d %s\n",i++,head->fname);
+    head= head->link;
+  }
+  
+  printf("\n");
+}
 
 status check_duplicate_in_file( f_list * head, char * fname)
 {
@@ -91,13 +109,14 @@ status cla_validation(int argv,char *argc[],f_list **head )
         char ch = fgetc(fp);
         if(ch == '#')
         {
-          fseek(fp,-1,SEEK_END);
+          fseek(fp,-2,SEEK_END);
           ch = fgetc(fp);
           
           if(ch == '#')
           {
+              file_open =1;
               valid = 0;
-              printf("backup file present ignore that ");
+              printf("Backup file Present ignored\n");
               fclose(fp);
             }
           }
@@ -120,7 +139,7 @@ status cla_validation(int argv,char *argc[],f_list **head )
     if(valid == 1 && pos != 0)
     {
       valid = 1;
-    }else
+    }else if(file_open == 0)
     {
       puts("Empty file");
       valid = 0;
