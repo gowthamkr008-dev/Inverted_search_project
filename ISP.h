@@ -41,6 +41,8 @@ status insert_first(f_list **,char * data);
 status create_database(f_list **head,ht_arr arr[27]);
 status save_database(ht_arr arr[27],char *filename);
 status updata_database(ht_arr arr[27],char *filename);
+status insert_last_main_node(main_node ** node,char *word,int f_count);
+status insert_last_sub_node(sub_node ** node,char*fname);
 
 
 void free_memory(ht_arr arr[27],f_list ** head);

@@ -1,80 +1,6 @@
 #include "ISP.h"
 
 
-static status insert_last_main_node(main_node ** node,char *word )
-{
-  
-  main_node  *new = malloc(sizeof(main_node));
-  
-  if(new == NULL)
-  {
-    return FAILURE;
-  }
-  
-  new->word = malloc(sizeof(main_node));
-  
-  if(new->word == NULL)
-  {
-    return FAILURE;
-  }
-  
-  strcpy(new->word,word );
-  new->f_cout = 1;
-  new->mn_link = NULL;
-  new->sn_link = NULL;
-  
-  if(*node == NULL)
-  {
-    *node = new;
-    return SUCCESS;
-  }
-  
-  main_node *temp = *node;
-  
-  while(temp->mn_link != NULL)
-  {
-    temp = temp->mn_link;
-  }
-  temp->mn_link = new;
-  return SUCCESS;
-}
-
-static status insert_last_sub_node(sub_node ** node,char*fname)
-{
-  sub_node  *new = malloc(sizeof(sub_node));
-  
-  if(new == NULL)
-  {
-    return FAILURE;
-  }
-  
-  new->fname = malloc(sizeof(main_node));
-  
-  if(new->fname == NULL)
-  {
-    return FAILURE;
-  }
-  
-  strcpy(new->fname,fname );
-  new->w_count = 1;
-  new->sn_link = NULL;
-  if(*node == NULL)
-  {
-    *node = new;
-    return SUCCESS;
-  }
-  
-  sub_node *temp = *node;
-  
-  while(temp->sn_link != NULL)
-  {
-    temp = temp->sn_link;
-  }
-  
-  temp->sn_link = new;
-  return SUCCESS;
-}
-
 status create_database(f_list **head,ht_arr arr[27])
 {
   
@@ -90,11 +16,11 @@ status create_database(f_list **head,ht_arr arr[27])
       return FAILURE;
     }
     
-    char buffer[256];
+    char buffer[1024];
     int ind;
     int updone = 0;
     
-    while(fscanf(fp, "%255s",buffer) == 1)
+    while(fscanf(fp, "%1023s",buffer) == 1)
     {
       updone = 0;
       char ch = tolower(buffer[0]) - 'a';
@@ -111,7 +37,7 @@ status create_database(f_list **head,ht_arr arr[27])
 
       if(arr[ind].mn_link == NULL)
       {                                                                         /* when main node has null that time execute */
-        if(insert_last_main_node(&arr[ind].mn_link,buffer)== FAILURE )
+        if(insert_last_main_node(&arr[ind].mn_link,buffer,1)== FAILURE )
         {
           return FAILURE;
         }else
@@ -163,7 +89,7 @@ status create_database(f_list **head,ht_arr arr[27])
 
       if(updone == 0)
       {                                                                           /* word are not present insert new node */
-        if(insert_last_main_node(&mn_temp->mn_link,buffer)== FAILURE )
+        if(insert_last_main_node(&mn_temp->mn_link,buffer,1)== FAILURE )
         {
           return FAILURE;
         }else

@@ -27,7 +27,7 @@ int main(int argc,char *argv[])
   {
     
     printf("--------Menu--------\n");
-    printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Updata database\n6.Exit\n");
+    printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Updata database\n6.Delete Database\n7.Exit\n");
     printf("--------------------\n");
     printf("Enter your choice : ");
     
@@ -70,7 +70,6 @@ int main(int argc,char *argv[])
         scanf("%19s",filename);
         while((ch = getc(stdin) != '\n') &&  ch != EOF );
         char *ext = strrchr(filename,'.');
-        
         if(ext == NULL)
         {
           printf("file must be in .txt \n");
@@ -79,8 +78,10 @@ int main(int argc,char *argv[])
           if(save_database(arr,filename) == FAILURE)
           {
             return FAILURE;
+          }else
+          {
+            printf("done");
           }
-          printf("done \n\n");
         }
         break;
       }
@@ -104,8 +105,14 @@ int main(int argc,char *argv[])
         }
         break;
       }
-      
       case 6:
+      {
+        f_list *temp = NULL;
+        free_memory(arr,&temp);
+        break;
+      }
+
+      case 7:
       free_memory(arr,&head);  
       return 0;
       

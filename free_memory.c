@@ -2,6 +2,7 @@
 
 void free_memory(ht_arr arr[27],f_list ** head)
 {
+  int db_del = 0;
   
   for (int i = 0; i < 27; i++)
   {
@@ -11,6 +12,7 @@ void free_memory(ht_arr arr[27],f_list ** head)
     {
       main_node *backup_mn = mn_temp;
       sub_node *sn_temp = mn_temp->sn_link;
+      db_del = 1;
       while (sn_temp != NULL)
       {
         sub_node *backup_sn = sn_temp;
@@ -36,4 +38,7 @@ void free_memory(ht_arr arr[27],f_list ** head)
     }
     
     *head = NULL;
+    if(db_del == 1){
+    printf("Database is deleted\n");
+    }
   }
