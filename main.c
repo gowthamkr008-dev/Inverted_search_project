@@ -41,15 +41,15 @@ int main(int argc,char *argv[])
     {
       case 1:
       {
-        if(up_db == 1 && head  != NULL){
-          check_file_already_update(arr,&head);
-          if(head == NULL){
-            printf("Data Base created succesfully ");
-            break;
-          }else{
-            creat_db = 0;
-          }
-        }
+        // if(up_db == 1 && head  != NULL){
+        //   // check_file_already_update(arr,&head);
+        //   if(head == NULL){
+        //     printf("Data Base created succesfully ");
+        //     break;
+        //   }else{
+        //     creat_db = 0;
+        //   }
+        // }
         if(creat_db == 0){
         creat_db = 1;
         if(create_database(&head,arr) == FAILURE)

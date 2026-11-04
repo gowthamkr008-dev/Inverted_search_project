@@ -44,7 +44,7 @@ status updata_database(ht_arr arr[27],char *filename);
 status insert_last_main_node(main_node ** node,char *word,int f_count);
 status insert_last_sub_node(sub_node ** node,char*fname);
 
-void check_file_already_update(arr,head);
+// void check_file_already_update(arr,head);
 
 void free_memory(ht_arr arr[27],f_list ** head);
 void display(ht_arr arr[27]); 
