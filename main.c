@@ -1,7 +1,6 @@
 #include"ISP.h"
 static status file_validation(char *f_name);
 
-
 int main(int argc,char *argv[])
 {
   
@@ -36,28 +35,35 @@ int main(int argc,char *argv[])
     
     scanf("%d",&choice);
     while((ch = getc(stdin) != '\n') &&  ch != EOF );
-    
+    printf("\n\n");
     switch (choice)
     {
       case 1:
       {
-        // if(up_db == 1 && head  != NULL){
-        //   // check_file_already_update(arr,&head);
-        //   if(head == NULL){
-        //     printf("Data Base created succesfully ");
-        //     break;
-        //   }else{
-        //     creat_db = 0;
-        //   }
-        // }
+        if(up_db == 1 && head  != NULL){
+          if(check_file_already_update(arr,&head) == FAILURE){
+            return FAILURE;
+          }
+
+          if(head != NULL){
+            creat_db = 0;
+          }else{
+            creat_db = 2;
+
+          }
+
+        }
         if(creat_db == 0){
         creat_db = 1;
         if(create_database(&head,arr) == FAILURE)
         {
           return FAILURE;
-        }else
+        }else if(creat_db == 2){
+          printf("DATABASE ALREADY CREATED\n");
+        }
+        else
         {
-          puts("Database created");
+         printf("\n\nDATABASE CREATED SUCCESFULLY");
         }
       }else{
         printf("Error: Data base already created\n");
@@ -134,7 +140,7 @@ int main(int argc,char *argv[])
         f_list *temp = NULL;
         free_memory(arr,&temp);
         creat_db = 0;
-        up_db =1;
+        up_db = 0;
         break;
       }
 
@@ -143,7 +149,7 @@ int main(int argc,char *argv[])
       return 0;
       
       default:
-      printf("INvalid choice\n");
+      printf("Invalid choice\n");
       break;
     }
     
@@ -156,7 +162,7 @@ int main(int argc,char *argv[])
 
 static status file_validation(char *fname)
 {
-  printf("FIle name is %s\n",fname);
+  printf("File name is %s\n",fname);
   
   char *ext = strrchr(fname,'.');
   

@@ -3,7 +3,7 @@
 
 status create_database(f_list **head,ht_arr arr[27])
 {
-  
+  printf("\n\n");
   f_list * temp = *head;
   int i = 0;
   
@@ -106,8 +106,10 @@ status create_database(f_list **head,ht_arr arr[27])
 
     }
     fclose(fp);
+    printf("SUCCESS : Created file %s\n",temp->fname);
     temp = temp->link;
   }
+
   return SUCCESS;
 }
 
