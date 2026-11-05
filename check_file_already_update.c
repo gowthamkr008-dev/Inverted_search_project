@@ -1,3 +1,17 @@
+/***************************************************************************************************************************************************************
+Title    : Check file already update 
+
+Operation : when user call update that time update the database then again try to create a database with the same file if give the wron information so i use 
+            this function if updated database is any file present in the node it will deleted and pring the file is already present in the database 
+
+Input     : Hash table file name
+
+Output    : SUCCESS  the every process is done retuen success 
+            FAILURE  when the file list is empty     
+
+
+***************************************************************************************************************************************************************/
+
 #include "ISP.h"
 static status delete_node(f_list **head,char *fname)
 {
@@ -37,6 +51,10 @@ static status delete_node(f_list **head,char *fname)
 status check_file_already_update(ht_arr arr[27],f_list **head)
 
 {
+  if(*head == NULL)
+  {
+    return FAILURE;
+  }
   
   int i,file_del = 0 ;
   f_list *temp = *head;

@@ -1,5 +1,19 @@
-#include "ISP.h"
+/**********************************************************************************************************************************************************
+Title     : Save the database
 
+Operation : Save the database to the txt file for the feature use no everytime to create a database ittake time once create database before going out to save 
+            the program to the txt file
+
+Input     : hashtable ,filename
+
+output    : SUCCESS   when return success it means database saves succesfully
+            FAILURE   file doesn't open return the failure
+
+
+
+***********************************************************************************************************************************************************/
+
+#include "ISP.h"
 status save_database(ht_arr arr[27],char *filename)
 {
   
