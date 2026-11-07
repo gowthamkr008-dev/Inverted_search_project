@@ -1,11 +1,10 @@
 /***************************************************************************************************************************************************************
-Title   : Search Database 
+Title     : Search Database 
+
+Operation :  
 
 
 ***************************************************************************************************************************************************************/
-
-
-
 
 #include"ISP.h"
 void search_database(ht_arr arr[27],char *word)
@@ -14,8 +13,7 @@ void search_database(ht_arr arr[27],char *word)
   char ch = tolower(word[0]) - 'a';
   int ind = ch;
   if(ind >= 0 && ind <= 25)
-  {
-    
+  { 
     ind = ch;
   }else
   {
@@ -25,7 +23,7 @@ void search_database(ht_arr arr[27],char *word)
   int done =0;
   
   main_node * temp = arr[ind].mn_link;
-  int print =0,gap = 15;
+  int print = 0,gap = 15;
   
   while(temp != NULL)
   {
