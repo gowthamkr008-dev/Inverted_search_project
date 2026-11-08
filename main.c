@@ -52,7 +52,7 @@ int main(int argc,char *argv[])
   while(1)                                                          /* do the operation untile user press exit number */
   {
     printf("--------Menu--------\n");
-    printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Updata database\n6.Delete Database\n7.Exit\n");
+    printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Updata database\n6.Exit\n");
     printf("--------------------\n");
     printf("Enter your choice : ");
     
@@ -149,9 +149,12 @@ int main(int argc,char *argv[])
             while((ch = getc(stdin) != '\n') &&  ch != EOF );
             if(file_validation(filename) == SUCCESS )                   /* check the file validation user give the proper file */
             {
-                if( updata_database(arr,filename) == FAILURE)           /* update the data base file to the database */
+              int status_file; 
+                if( (status_file = updata_database(arr,filename)) == FAILURE)           /* update the data base file to the database */
                 {
                    goto error;
+                }else if(status_file == INVALID) {
+                  
                 }
                 up_db = 1;
                 printf("DATABASE UPDATE SUCCESFULLY\n");
@@ -165,18 +168,7 @@ int main(int argc,char *argv[])
             }
             break;
           }
-      
-      
-      case 6:                                                          /*delete the database */
-      {
-          f_list *temp = NULL;
-          free_memory(arr,&temp);
-          creat_db = 0;
-          up_db = 0;
-          break;
-      }
-
-      case 7:                                                          /* exit the program */
+      case 6:                                                          /* exit the program */
           free_memory(arr,&head);  
           return 0;
       

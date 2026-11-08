@@ -1,5 +1,6 @@
-#include "ISP.h"
 
+
+#include "ISP.h"
 status insert_last_main_node(main_node ** node,char *word ,int f_count)
 {
   
@@ -71,5 +72,24 @@ status insert_last_sub_node(sub_node ** node,char*fname)
   }
   
   temp->sn_link = new;
+  return SUCCESS;
+}
+
+
+
+status insert_first(f_list ** head, char * name)
+{
+  f_list * new =  malloc(sizeof(f_list));
+  
+  if(new == NULL)
+  {
+    return FAILURE;
+  }
+  
+  new->fname = name;
+  new->link  = *head;
+  
+  *head = new;
+  
   return SUCCESS;
 }

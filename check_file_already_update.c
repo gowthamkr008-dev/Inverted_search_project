@@ -62,16 +62,16 @@ status check_file_already_update(ht_arr arr[27], f_list **head)                 
       main_node *mn_temp = arr[i].mn_link;                                                    /*asign a temporary node  for tarverse for a main node */
       while (mn_temp != NULL)
       {
-        sub_node *sn_temp = mn_temp->sn_link;                                                     /*asign a temporary node for trverse for a sub node */
+        sub_node *sn_temp = mn_temp->sn_link;                                                 /*asign a temporary node for trverse for a sub node */
         while (sn_temp != NULL)
         {
-          temp = *head;                                                                              /* after traverse for next traverse reasign a head for next traverse  */
+          temp = *head;                                                                       /* after traverse for next traverse reasign a head for next traverse  */
           while (temp != NULL)
           {
-            if (strcmp(sn_temp->fname, temp->fname) == 0)                                            /* if sub node file name and file list file name compare is equal consider this file name is alreaady updated */
+            if (strcmp(sn_temp->fname, temp->fname) == 0)                                     /* if sub node file name and file list file name compare is equal consider this file name is alreaady updated */
             {
               printf("%s Already Exist\n", temp->fname);
-              if (delete_node(head, temp->fname) == SUCCESS)                                          /*call the function to delete the node */
+              if (delete_node(head, temp->fname) == SUCCESS)                                  /*call the function to delete the node */
               {
                 file_del = 1;
                 break;

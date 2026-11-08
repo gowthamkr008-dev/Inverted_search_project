@@ -32,7 +32,8 @@ typedef struct ht_arr{
 typedef enum status{
   FAILURE =-1,
   SUCCESS = 1,
-  UPDATE_DB
+  // UPDATE_DB,
+  INVALID
 }status;
 
 /*function declerations*/
