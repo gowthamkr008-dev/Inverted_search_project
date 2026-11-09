@@ -169,6 +169,9 @@ status cla_validation(int argc,char *argv[],f_list **head )
     printf("\n");
   }
   printf("\n");
+  if( *head == NULL){
+    return FAILURE;
+  }
   return SUCCESS;
 }
 
