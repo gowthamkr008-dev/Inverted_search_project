@@ -17,7 +17,7 @@ status updata_database(ht_arr arr[27],char *filename)
   {
     if(arr[i].mn_link != NULL)
     {
-      printf("Your Database should be Empty, but it's not.\n");
+      printf("YOUR DATABASE SHOULD BE EMPTY, BUT IT'S NOT.\n");
       return  INVALID;
     }
   }

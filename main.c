@@ -51,14 +51,14 @@ int main(int argc,char *argv[])
 
   while(1)                                                          /* do the operation untile user press exit number */
   {
-    printf("--------Menu--------\n");
+    printf("--------Menu-----------\n");
     printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Updata database\n6.Exit\n");
-    printf("--------------------\n");
+    printf("-----------------------\n");
     printf("Enter your choice : ");
     
     scanf("%d",&choice);                                               /* choose the choose what to do the search */
-    while((ch = getc(stdin) != '\n') &&  ch != EOF );                  /*clear the input buffer after scanf read  */
-    printf("\n\n");
+    while((ch = getc(stdin) != '\n') &&  ch != EOF );                 /*clear the input buffer after scanf read  */
+    printf("-----------------------\n");
     switch (choice)
     {
       case 1:                                                            /* create a database */
@@ -95,7 +95,7 @@ int main(int argc,char *argv[])
             }
           }else                                                          /* when user first time press 1 it create a database then user press 1 it show the database is already created */
           {
-            printf("Error: Data base already created\n");
+            printf("ERROR : DATABASE ALEADY CREATED\n");
           }
           break;
         }
@@ -107,7 +107,7 @@ int main(int argc,char *argv[])
       case 3:                                                              /* search the data */
       {
           char search_data[50];
-          printf("Enter a data You need to Search : ");
+          printf("Enter a word You need to Search : ");
           scanf("%49s",search_data);
           while((ch = getc(stdin) != '\n') &&  ch != EOF );
           search_database(arr,search_data);
@@ -116,11 +116,11 @@ int main(int argc,char *argv[])
       
       case 4:                                                              /* save the database to the txt file */
       {
-          printf("save database\n");
           char filename[20];
           printf("Enter a file name to save a database :");
           scanf("%19s",filename);
           while((ch = getc(stdin) != '\n') &&  ch != EOF );
+          printf("\n");
           char *ext = strrchr(filename,'.');                                /* check the user give the valid file or not */
           if(ext == NULL)
           {
@@ -149,15 +149,14 @@ int main(int argc,char *argv[])
             while((ch = getc(stdin) != '\n') &&  ch != EOF );
             if(file_validation(filename) == SUCCESS )                   /* check the file validation user give the proper file */
             {
-              int status_file; 
+                int status_file; 
                 if( (status_file = updata_database(arr,filename)) == FAILURE)           /* update the data base file to the database */
                 {
-                   goto error;
-                }else if(status_file == INVALID) {
-                  
+                  goto error;
+                }else if(status_file == SUCCESS) {
+                  up_db = 1;
+                  printf("DATABASE UPDATE SUCCESFULLY\n");
                 }
-                up_db = 1;
-                printf("DATABASE UPDATE SUCCESFULLY\n");
               }else
               {
                 printf("Invalid file\n");
@@ -178,7 +177,7 @@ int main(int argc,char *argv[])
     }
     
     choice = 0;                                                     /* user give the other than the numbers it take the older value to do the operation */
-    printf("\n\n");
+    printf("\n");
   }
 
 
@@ -192,8 +191,6 @@ return FAILURE;
 
 static status file_validation(char *fname)                             /* file validation */
 {
-  printf("File name is %s\n",fname);
-  
   char *ext = strrchr(fname,'.');                                     /* seprate the file name to .txt */
   
   if(ext == NULL)                                                     /* inbuit return null it means file name not contain any .txt */

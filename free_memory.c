@@ -44,8 +44,4 @@ void free_memory(ht_arr arr[27],f_list ** head)
     }
     
     *head = NULL;
-    if(db_del == 1)
-    {
-      printf("DATABASE DELETED SUCCESFULLY\n");
-    }
   }
