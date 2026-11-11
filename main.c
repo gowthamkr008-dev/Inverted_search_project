@@ -52,7 +52,7 @@ int main(int argc,char *argv[])
   while(1)                                                          /* do the operation untile user press exit number */
   {
     printf("--------Menu-----------\n");
-    printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Updata database\n6.Exit\n");
+    printf("1.Create Database\n2.Display Dadabase\n3.Search Database\n4.save database\n5.Update database\n6.Exit\n");
     printf("-----------------------\n");
     printf("Enter your choice : ");
     

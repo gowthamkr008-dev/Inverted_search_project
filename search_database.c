@@ -49,7 +49,7 @@ void search_database(ht_arr arr[27],char *word)
       {
         if(print == 1)
         {
-          gap = 27;
+          gap = 33;
         }
         printf("%*s %5d\n",gap,sn_temp->fname,sn_temp->w_count);             /*printf th file name and word count */
         sn_temp = sn_temp->sn_link;                                         /*pointer moves to the next position */
